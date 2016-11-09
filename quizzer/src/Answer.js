@@ -6,8 +6,9 @@ export default class Answer extends React.Component {
     return (
       <label >
         <input
+          name={this.props.id}
           className='answer'
-          type='checkbox'
+          type='radio'
           value={score}
         />
         {title}
