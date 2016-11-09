@@ -10,6 +10,7 @@ export default class Question extends React.Component {
         <h2>{title}</h2>
         {answers.map((answer, index) =>
           <Answer
+            increment={(score) => this.props.increment(score)}
             id={id}
             key={index}
             data={answer}/>

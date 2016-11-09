@@ -7,7 +7,8 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      quizzes: null
+      quizzes: null,
+      score: null
     };
   }
 
@@ -22,17 +23,32 @@ export default class App extends React.Component {
       });
   }
 
+  handleIncrementScore(score){
+    const newScore = this.state.score + score;
+    this.setState({score:  newScore });
+  }
+
+  handleSubmit(){
+    let currentScore = this.state.score;
+    axios.post(`/scores/${currentScore}`)
+    .then((response) => {
+      console.log(response);
+    });
+  }
+
   render() {
     let quizzes = this.state.quizzes;
     return (
       <main>
         {quizzes
           ? quizzes.map(quiz => <Quiz
+            increment={(score) => this.handleIncrementScore(score) }
             className='quiz'
             data={quiz}
             key={quiz.id}/>)
           : <p>Loading Quizzes...</p>
         }
+        <button onClick={() => this.handleSubmit()}>Submit</button>
       </main>
     );
   }
