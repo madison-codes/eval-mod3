@@ -4,7 +4,7 @@ const app = express();
 const http = require('http').Server(app);
 const cors = require('express-cors');
 const bodyParser = require('body-parser');
-var path    = require("path");
+var path = require("path");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -126,10 +126,10 @@ app.post('/quizzes/:quizId/questions', (request, response) => {
   question.id = question.id || Date.now();
 
   const quiz = app.locals.quizzes.find(q => q.id == quizId);
-  if (quiz) { 
+  if (quiz) {
     quiz.questions.push(question);
     return response.send({ quiz });
-  } else { 
+  } else {
     return response
       .status(404)
       .send({ error: `Quiz with an id of ${quizId} not found.` });
